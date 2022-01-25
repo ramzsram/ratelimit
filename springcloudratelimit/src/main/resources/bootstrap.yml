@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: apigatewayservice
+  cloud:
+    gateway:
+      routes:
+        - id: httpbin
+          uri: http://httpbin.org/
+          predicates:
+            - Path=/stream/**
+          filters:
+            - RequestRateLimiter
+        - id: httpbin2
+          uri: http://httpbin.org/
+          predicates:
+            - Path=/uuid
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    timeout: 60000
+
+
+tokencheckservice:
+  url: http://localhost:8088
+
+apiToken:
+  check:
+    url: /token/validate
+
